@@ -1,0 +1,25 @@
+{
+    "name": "react-node",
+    "version": "1.0.0",
+    "description": "Starter package for React & Node Express apps",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "portal": "npm start --prefix portal",
+        "full-stack": "concurrently \"npm run server\" \"npm run portal\"",
+        "test": "jest --forceExit"
+    },
+    "author": "Konstantinos Voulgaridis",
+    "license": "MIT",
+    "dependencies": {
+        "concurrently": "^4.1.2",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "supertest": "^4.0.2"
+    },
+    "devDependencies": {
+        "jest": "^24.9.0",
+        "nodemon": "^1.19.2"
+    }
+}
