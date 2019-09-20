@@ -17,7 +17,7 @@ const fileContents = fs.readFileSync('./five-letter-words.json', 'utf-8');
 const words = JSON.parse(fileContents);
 const { fiveLetterWords } = words;
 
-app.get('/', (req, res) => {
+app.get('/api/word', (req, res) => {
     // select a random word
     const word =
         fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)];
