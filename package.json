@@ -1,5 +1,5 @@
 {
-    "name": "react-node",
+    "name": "jotto",
     "version": "1.0.0",
     "description": "Starter package for React & Node Express apps",
     "main": "server.js",
