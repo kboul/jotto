@@ -1,13 +1,7 @@
 import React from 'react';
-import GetWord from './GetWord';
 
 function App() {
-    return (
-        <>
-            <div>Hello World</div>
-            <GetWord />
-        </>
-    );
+    return <div className="App">Hello World</div>;
 }
 
 export default App;
