@@ -1,6 +1,6 @@
 # Jotto
 
-A React & Node.js app to learn testing.
+A React & Node.js app to learn & practice react, redux testing.
 
 ## Install all dependencies for both front-end & back-end
 
