@@ -4,9 +4,9 @@ import GuessedWords from './GuessedWords';
 
 const App = () => {
     return (
-        <div className="container-fluid">
+        <div className="container">
             <div className="text-center">
-                <h1>Jotto</h1>
+                <h1 className="my-4">Jotto</h1>
                 <Congrats success={true} />
                 <GuessedWords
                     guessedWords={[
