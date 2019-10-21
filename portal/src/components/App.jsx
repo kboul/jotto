@@ -1,7 +1,21 @@
 import React from 'react';
+import Congrats from './Congrats';
+import GuessedWords from './GuessedWords';
 
-function App() {
-    return <div className="App">Hello World</div>;
-}
+const App = () => {
+    return (
+        <div className="container-fluid">
+            <div className="text-center">
+                Jotto
+                <Congrats success={true} />
+                <GuessedWords
+                    guessedWords={[
+                        { guessedWord: 'train', letterMatchCount: 3 }
+                    ]}
+                />
+            </div>
+        </div>
+    );
+};
 
 export default App;
