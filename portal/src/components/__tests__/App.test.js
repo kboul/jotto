@@ -4,6 +4,6 @@ import App from '../App';
 
 test('renders without crashing', () => {
     const wrapper = shallow(<App />);
-    console.log(wrapper.debug());
+    // console.log(wrapper.debug());
     expect(wrapper).toBeTruthy();
 });
