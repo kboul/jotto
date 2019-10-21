@@ -6,7 +6,7 @@ const App = () => {
     return (
         <div className="container-fluid">
             <div className="text-center">
-                Jotto
+                <h1>Jotto</h1>
                 <Congrats success={true} />
                 <GuessedWords
                     guessedWords={[
