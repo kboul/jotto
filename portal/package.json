@@ -23,7 +23,9 @@
         "collectCoverageFrom": [
             "src/**/*.{js,jsx}",
             "!src/index.js",
-            "!src/serviceWorker.js"
+            "!src/serviceWorker.js",
+            "!src/store/index.js",
+            "!src/store/reducers/index.js"
         ]
     },
     "proxy": "http://localhost:5000",
