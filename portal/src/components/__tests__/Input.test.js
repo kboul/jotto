@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Input from '../Input';
-import { storeFactory } from '../../../test/testUtils';
+import { storeFactory, findByTestAttr } from '../../../test/testUtils';
 
 const setup = (initialState = {}) => {
     const store = storeFactory(initialState);
     const wrapper = shallow(<Input store={store} />)
         .dive()
         .dive();
-    console.log(wrapper.debug());
+    // console.log(wrapper.debug());
     return wrapper;
 };
 
@@ -24,11 +24,25 @@ describe('render', () => {
     });
 
     describe('word has been guessed', () => {
-        test('renders component without error', () => {});
+        let wrapper;
+        beforeEach(() => {
+            const initialState = { success: false };
+            wrapper = setup(initialState);
+        });
+        test('renders component without error', () => {
+            const component = findByTestAttr(wrapper, 'component-input');
+            expect(component).toHaveLength(1);
+        });
 
-        test('does not render input box', () => {});
+        test('does not render input box', () => {
+            const component = findByTestAttr(wrapper, 'input-box');
+            expect(component).toHaveLength(1);
+        });
 
-        test('does not render submit button', () => {});
+        test('does not render submit button', () => {
+            const component = findByTestAttr(wrapper, 'submit-button');
+            expect(component).toHaveLength(1);
+        });
     });
 });
 
