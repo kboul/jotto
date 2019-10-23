@@ -1,5 +1,5 @@
 import { types } from './types';
 
-export const correctGuess = () => {
-    return { type: types.CORRECT_GUESS };
+export const guessWord = guessedWord => {
+    return (dispatch, getState) => {};
 };
