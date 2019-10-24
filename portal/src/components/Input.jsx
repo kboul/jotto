@@ -10,13 +10,13 @@ const Input = ({ success, guessWord }) => {
             <input
                 type="text"
                 data-test="input-box"
-                className="mb-2 mx-sm-3"
+                className="form-control mb-2 mx-sm-3"
                 placeholder="enter guess"
             />
             <button
                 type="submit"
                 data-test="submit-button"
-                className="btn btn primary mb-2">
+                className="btn btn-primary mb-2">
                 Submit
             </button>
         </form>
