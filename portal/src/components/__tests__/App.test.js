@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../App';
-import { storeFactory, checkProps } from '../../../test/testUtils';
+import ConnectedApp, { App } from '../App';
+import { storeFactory } from '../../../test/testUtils';
 
 const setup = (initialState = {}) => {
     const store = storeFactory(initialState);
-    const wrapper = shallow(<App store={store} />).dive(); // note, single dive
+    const wrapper = shallow(<ConnectedApp store={store} />).dive(); // note, single dive
     return wrapper;
 };
 
@@ -33,8 +33,29 @@ describe('redux props', () => {
 
     test('`guessWord` action creator is a function prop', () => {
         const store = storeFactory();
-        const wrapper = shallow(<App store={store} />).dive(); // note, single dive
-        const guessWordProp = wrapper.props().guessWord;
-        expect(guessWordProp).toBeInstanceOf(Function);
+        const wrapper = shallow(<ConnectedApp store={store} />).dive(); // note, single dive
+        const getSecretWordProp = wrapper.props().getSecretWord;
+        expect(getSecretWordProp).toBeInstanceOf(Function);
     });
+});
+
+test('`getSecretWord` runs on App mount', () => {
+    const getSecretWordMock = jest.fn();
+
+    const props = {
+        getSecretWord: getSecretWordMock,
+        success: false,
+        guessedWords: []
+    };
+
+    // setup app component with getSecretWordMock as the getSecretWord prop
+    const wrapper = shallow(<App {...props} />);
+
+    // run lifecycle method
+    wrapper.instance().componentDidMount();
+
+    // check to see if mock ran
+    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+    expect(getSecretWordCallCount).toBe(1);
 });
