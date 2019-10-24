@@ -39,7 +39,7 @@ const GuessedWords = ({ guessedWords }) => {
     return (
         <div
             data-test="component-guessed-words"
-            className="col-md-6 offset-md-3 mt-5">
+            className="col-md-6 offset-md-3 mt-4">
             {contents}
         </div>
     );

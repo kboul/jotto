@@ -22,7 +22,11 @@ const Input = ({ success, guessWord }) => {
         </form>
     ) : null;
 
-    return <div data-test="component-input">{contents}</div>;
+    return (
+        <div className="col-md-6 offset-md-4" data-test="component-input">
+            {contents}
+        </div>
+    );
 };
 
 Input.propTypes = {
