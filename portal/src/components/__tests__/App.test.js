@@ -39,7 +39,7 @@ describe('redux props', () => {
     });
 });
 
-test('`getSecretWord` runs on App mount', () => {
+test('`getSecretWord` runs on unconnected App', () => {
     const getSecretWordMock = jest.fn();
 
     const props = {
