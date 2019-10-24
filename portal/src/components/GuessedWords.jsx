@@ -8,7 +8,7 @@ const GuessedWords = ({ guessedWords }) => {
         ? (contents = (
               <div
                   data-test="guess-instructions"
-                  className="alert alert-danger">
+                  className="alert alert-warning">
                   Try to guess the secret word
               </div>
           ))
