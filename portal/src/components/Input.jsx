@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { guessWord } from '../store/actions';
 
-const Input = ({ success }) => {
+const Input = ({ success, guessWord }) => {
     let contents;
     contents = !success ? (
         <form className="form-inline">
@@ -25,9 +26,17 @@ const Input = ({ success }) => {
 };
 
 Input.propTypes = {
-    success: PropTypes.bool
+    success: PropTypes.bool.isRequired,
+    guessWord: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({ success: state.success });
 
-export default connect(mapStateToProps)(Input);
+const mapDispatchToProps = {
+    guessWord
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Input);

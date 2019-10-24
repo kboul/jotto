@@ -12,8 +12,6 @@ const setup = (initialState = {}) => {
     return wrapper;
 };
 
-setup();
-
 describe('render', () => {
     describe('word has not been guessed', () => {
         let wrapper;
@@ -60,4 +58,19 @@ describe('render', () => {
     });
 });
 
-describe('update state', () => {});
+describe('redux props', () => {
+    test('has success piece of state as prop on a functional component', () => {
+        const success = true;
+        const store = storeFactory({ success });
+        const wrapper = shallow(<Input store={store} />).dive(); // note, single dive
+        const successProp = wrapper.props().success;
+        expect(successProp).toBe(success);
+    });
+
+    test('`guessWord` action creator is a function prop', () => {
+        const store = storeFactory();
+        const wrapper = shallow(<Input store={store} />).dive(); // note, single dive
+        const guessWordProp = wrapper.props().guessWord;
+        expect(guessWordProp).toBeInstanceOf(Function);
+    });
+});
