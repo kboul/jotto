@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { guessWord } from '../store/actions';
 
-const Input = ({ success, guessWord }) => {
+export const Input = ({ success, guessWord }) => {
     let contents;
     contents = !success ? (
         <form className="form-inline">
@@ -16,7 +16,8 @@ const Input = ({ success, guessWord }) => {
             <button
                 type="submit"
                 data-test="submit-button"
-                className="btn btn-primary mb-2">
+                className="btn btn-primary mb-2"
+                onClick={() => guessWord('train')}>
                 Submit
             </button>
         </form>

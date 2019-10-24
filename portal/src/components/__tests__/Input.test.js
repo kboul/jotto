@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Input from '../Input';
+import ConnectedInput, { Input } from '../Input';
 import { storeFactory, findByTestAttr } from '../../../test/testUtils';
 
 const setup = (initialState = {}) => {
     const store = storeFactory(initialState);
-    const wrapper = shallow(<Input store={store} />)
+    const wrapper = shallow(<ConnectedInput store={store} />)
         .dive()
         .dive();
     // console.log(wrapper.debug());
@@ -62,15 +62,37 @@ describe('redux props', () => {
     test('has success piece of state as prop on a functional component', () => {
         const success = true;
         const store = storeFactory({ success });
-        const wrapper = shallow(<Input store={store} />).dive(); // note, single dive
+        const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
         const successProp = wrapper.props().success;
         expect(successProp).toBe(success);
     });
 
     test('`guessWord` action creator is a function prop', () => {
         const store = storeFactory();
-        const wrapper = shallow(<Input store={store} />).dive(); // note, single dive
+        const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
         const guessWordProp = wrapper.props().guessWord;
         expect(guessWordProp).toBeInstanceOf(Function);
+    });
+});
+
+describe('`guessWord` action creator call', () => {
+    test('calls `guessWord` when button is clicked ', () => {
+        const guessWordMock = jest.fn();
+
+        const props = {
+            guessWord: guessWordMock,
+            success: false
+        };
+
+        // setup app component with getSecretWordMock as the getSecretWord prop
+        const wrapper = shallow(<Input {...props} />);
+
+        // simulate button click
+        const submitButton = findByTestAttr(wrapper, 'submit-button');
+        submitButton.simulate('click');
+
+        // check to see if mock ran
+        const guessWordCallCount = guessWordMock.mock.calls.length;
+        expect(guessWordCallCount).toBe(1);
     });
 });
