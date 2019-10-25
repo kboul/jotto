@@ -60,18 +60,24 @@ describe('connected Input', () => {
     });
 
     describe('redux props', () => {
-        test('has success piece of state as prop on a functional component', () => {
+        test('has success piece of state as prop', () => {
             const success = true;
-            const store = storeFactory({ success });
-            const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
-            const successProp = wrapper.props().success;
+            const wrapper = setup({ success });
+            const successProp = wrapper.instance().props.success;
+            // this would apply if it was a functional component
+            // const store = storeFactory({ success });
+            // const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
+            // const successProp = wrapper.props().success;
             expect(successProp).toBe(success);
         });
 
         test('`guessWord` action creator is a function prop', () => {
-            const store = storeFactory();
-            const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
-            const guessWordProp = wrapper.props().guessWord;
+            const wrapper = setup();
+            const guessWordProp = wrapper.instance().props.guessWord;
+            // this would apply if it was a functional component
+            // const store = storeFactory();
+            // const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
+            // const guessWordProp = wrapper.props().guessWord;
             expect(guessWordProp).toBeInstanceOf(Function);
         });
     });
@@ -79,8 +85,12 @@ describe('connected Input', () => {
 
 describe('unconnected Input', () => {
     describe('`guessWord` action creator call', () => {
-        test('calls `guessWord` when button is clicked ', () => {
-            const guessWordMock = jest.fn();
+        let guessWordMock;
+        let wrapper;
+        const guessedWord = 'train';
+
+        beforeEach(() => {
+            guessWordMock = jest.fn();
 
             const props = {
                 guessWord: guessWordMock,
@@ -88,15 +98,30 @@ describe('unconnected Input', () => {
             };
 
             // setup app component with getSecretWordMock as the getSecretWord prop
-            const wrapper = shallow(<Input {...props} />);
+            wrapper = shallow(<Input {...props} />);
+
+            // add value to the input box
+            wrapper.setState({ currentGuess: guessedWord });
+            // console.log(wrapper.state());
 
             // simulate button click
             const submitButton = findByTestAttr(wrapper, 'submit-button');
-            submitButton.simulate('click');
+            submitButton.simulate('click', { preventDefault() {} });
+        });
 
+        test('calls `guessWord` when button is clicked ', () => {
             // check to see if mock ran
             const guessWordCallCount = guessWordMock.mock.calls.length;
             expect(guessWordCallCount).toBe(1);
+        });
+
+        test('calls `guessWord` with input value as argument', () => {
+            const guessWordArg = guessWordMock.mock.calls[0][0];
+            expect(guessWordArg).toBe(guessedWord);
+        });
+
+        test('clears the input box when clicking submit', () => {
+            expect(wrapper.state().currentGuess).toEqual('');
         });
     });
 });
