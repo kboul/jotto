@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Congrats from './Congrats';
 import GuessedWords from './GuessedWords';
 import Input from './Input';
+import RevealSecretWord from './RevealSecretWord';
 import { getSecretWord } from '../store/actions';
 
 export class App extends Component {
@@ -18,6 +19,7 @@ export class App extends Component {
             <div className="container">
                 <div className="text-center">
                     <h1 className="my-4">Jotto</h1>
+                    <RevealSecretWord />
                     <Congrats success={success} />
                     <Input />
                     <GuessedWords guessedWords={guessedWords} />
