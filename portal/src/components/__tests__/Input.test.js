@@ -97,14 +97,17 @@ describe('connected Input', () => {
 describe('unconnected Input', () => {
     describe('`guessWord` action creator call', () => {
         let guessWordMock;
+        let toggleGiveUpMock;
         let wrapper;
         const guessedWord = 'train';
 
         beforeEach(() => {
             guessWordMock = jest.fn();
+            toggleGiveUpMock = jest.fn();
 
             const props = {
                 guessWord: guessWordMock,
+                toggleGiveUp: toggleGiveUpMock,
                 success: false
             };
 
@@ -112,40 +115,53 @@ describe('unconnected Input', () => {
             wrapper = shallow(<Input {...props} />);
         });
 
-        test('local state changes after inserting a new value on input', () => {
-            // here test the onChange event
-            const input = findByTestAttr(wrapper, 'input-box');
-            const event = {
-                preventDefault() {},
-                target: { value: guessedWord }
-            };
-            input.simulate('change', event);
-            expect(wrapper.state().currentGuess).toBe(guessedWord);
+        describe('Guess button is clicked', () => {
+            test('local state changes after inserting a new value on input', () => {
+                // here test the onChange event
+                const input = findByTestAttr(wrapper, 'input-box');
+                const event = {
+                    preventDefault() {},
+                    target: { value: guessedWord }
+                };
+                input.simulate('change', event);
+                expect(wrapper.state().currentGuess).toBe(guessedWord);
+            });
+
+            beforeEach(() => {
+                // add value to the input box
+                wrapper.setState({ currentGuess: guessedWord });
+                // console.log(wrapper.state());
+
+                // simulate button click
+                const submitButton = findByTestAttr(wrapper, 'submit-button');
+                submitButton.simulate('click', { preventDefault() {} });
+            });
+
+            test('calls `guessWord` when button is clicked ', () => {
+                // check to see if mock ran
+                const guessWordCallCount = guessWordMock.mock.calls.length;
+                expect(guessWordCallCount).toBe(1);
+            });
+
+            test('calls `guessWord` with input value as argument', () => {
+                const guessWordArg = guessWordMock.mock.calls[0][0];
+                expect(guessWordArg).toBe(guessedWord);
+            });
+
+            test('clears the input box when clicking submit', () => {
+                expect(wrapper.state().currentGuess).toEqual('');
+            });
         });
 
-        beforeEach(() => {
-            // add value to the input box
-            wrapper.setState({ currentGuess: guessedWord });
-            // console.log(wrapper.state());
-
-            // simulate button click
-            const submitButton = findByTestAttr(wrapper, 'submit-button');
-            submitButton.simulate('click', { preventDefault() {} });
-        });
-
-        test('calls `guessWord` when button is clicked ', () => {
-            // check to see if mock ran
-            const guessWordCallCount = guessWordMock.mock.calls.length;
-            expect(guessWordCallCount).toBe(1);
-        });
-
-        test('calls `guessWord` with input value as argument', () => {
-            const guessWordArg = guessWordMock.mock.calls[0][0];
-            expect(guessWordArg).toBe(guessedWord);
-        });
-
-        test('clears the input box when clicking submit', () => {
-            expect(wrapper.state().currentGuess).toEqual('');
+        describe('Give up button is clicked', () => {
+            test('`toggleGiveUp` action creator call when button is clicked ', () => {
+                const giveUpButton = findByTestAttr(wrapper, 'give-up-button');
+                giveUpButton.simulate('click', { preventDefault() {} });
+                // check to see if mock ran
+                const toggleGiveUpCallCount =
+                    toggleGiveUpMock.mock.calls.length;
+                expect(toggleGiveUpCallCount).toBe(1);
+            });
         });
     });
 });
