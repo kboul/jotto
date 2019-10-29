@@ -1,5 +1,27 @@
 import { storeFactory } from '../test/testUtils';
-import { guessWord } from './store/actions';
+import { guessWord, toggleGiveUp } from './store/actions';
+
+describe('toggleGiveUp action dispatcher', () => {
+    const secretWord = 'party';
+    const initialState = { secretWord };
+
+    let store;
+    beforeEach(() => {
+        store = storeFactory(initialState);
+    });
+
+    test('updates state correctly when clicking give up button', () => {
+        store.dispatch(toggleGiveUp());
+        const expectedState = {
+            ...initialState,
+            success: false,
+            giveUp: true,
+            guessedWords: []
+        };
+        const newState = store.getState();
+        expect(newState).toEqual(expectedState);
+    });
+});
 
 describe('guessWord action dispatcher', () => {
     const secretWord = 'party';
