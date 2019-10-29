@@ -110,7 +110,20 @@ describe('unconnected Input', () => {
 
             // setup app component with getSecretWordMock as the getSecretWord prop
             wrapper = shallow(<Input {...props} />);
+        });
 
+        test('local state changes after inserting a new value on input', () => {
+            // here test the onChange event
+            const input = findByTestAttr(wrapper, 'input-box');
+            const event = {
+                preventDefault() {},
+                target: { value: guessedWord }
+            };
+            input.simulate('change', event);
+            expect(wrapper.state().currentGuess).toBe(guessedWord);
+        });
+
+        beforeEach(() => {
             // add value to the input box
             wrapper.setState({ currentGuess: guessedWord });
             // console.log(wrapper.state());
