@@ -62,7 +62,8 @@ export class Input extends Component {
 
 Input.propTypes = {
     success: PropTypes.bool.isRequired,
-    guessWord: PropTypes.func.isRequired
+    guessWord: PropTypes.func.isRequired,
+    toggleGiveUp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({ success: state.success });
