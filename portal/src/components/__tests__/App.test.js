@@ -10,14 +10,14 @@ const setup = (initialState = {}) => {
 };
 
 describe('redux props', () => {
-    test('has success piece of state as prop on a functional component', () => {
+    test('has success piece of state as prop', () => {
         const success = true;
         const wrapper = setup({ success });
         const successProp = wrapper.props().success;
         expect(successProp).toBe(success);
     });
 
-    test('has secretWord piece of state as prop on a functional component', () => {
+    test('has secretWord piece of state as prop', () => {
         const secretWord = 'party';
         const wrapper = setup({ secretWord });
         const secretWordProp = wrapper.props().secretWord;
