@@ -39,7 +39,7 @@ export class Input extends Component {
                     data-test="submit-button"
                     className="btn btn-primary mb-2"
                     onClick={this.handleClick}>
-                    Submit
+                    Guess
                 </button>
             </form>
         ) : null;
