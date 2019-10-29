@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { guessWord } from '../store/actions';
+import { toggleGiveUp } from '../store/actions';
 
 export class Input extends Component {
     state = {
@@ -20,7 +21,7 @@ export class Input extends Component {
 
     render() {
         const { currentGuess } = this.state;
-        const { success } = this.props;
+        const { success, toggleGiveUp } = this.props;
         let contents;
         contents = !success ? (
             <form className="form-inline">
@@ -41,6 +42,13 @@ export class Input extends Component {
                     onClick={this.handleClick}>
                     Guess
                 </button>
+                <button
+                    type="button"
+                    className="btn btn-danger mb-2 ml-2"
+                    data-test="give-up-button"
+                    onClick={() => toggleGiveUp()}>
+                    Give up
+                </button>
             </form>
         ) : null;
 
@@ -60,7 +68,8 @@ Input.propTypes = {
 const mapStateToProps = state => ({ success: state.success });
 
 const mapDispatchToProps = {
-    guessWord
+    guessWord,
+    toggleGiveUp
 };
 
 export default connect(

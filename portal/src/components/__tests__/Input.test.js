@@ -34,6 +34,11 @@ describe('connected Input', () => {
                 const component = findByTestAttr(wrapper, 'submit-button');
                 expect(component).toHaveLength(1);
             });
+
+            test('renders give up button', () => {
+                const component = findByTestAttr(wrapper, 'give-up-button');
+                expect(component).toHaveLength(1);
+            });
         });
 
         describe('word has been guessed', () => {
@@ -79,6 +84,12 @@ describe('connected Input', () => {
             // const wrapper = shallow(<ConnectedInput store={store} />).dive(); // note, single dive
             // const guessWordProp = wrapper.props().guessWord;
             expect(guessWordProp).toBeInstanceOf(Function);
+        });
+
+        test('`toggleGiveUp` action creator is a function prop', () => {
+            const wrapper = setup();
+            const toggleGiveUpProp = wrapper.instance().props.toggleGiveUp;
+            expect(toggleGiveUpProp).toBeInstanceOf(Function);
         });
     });
 });

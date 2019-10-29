@@ -2,6 +2,11 @@ import axios from 'axios';
 import { types } from './types';
 import { getLetterMatchCount } from '../../utils/getLetterMatchCount';
 
+/**
+ *
+ * @param {string} guessedWord
+ */
+
 export const guessWord = guessedWord => {
     return (dispatch, getState) => {
         const secretWord = getState().secretWord;
@@ -24,3 +29,7 @@ export const getSecretWord = () => {
         dispatch({ type: types.SET_SECRET_WORD, payload: data });
     };
 };
+
+export const toggleGiveUp = () => ({
+    type: types.GIVE_UP
+});
