@@ -10,6 +10,5 @@ const setup = () => {
 test('App renders without error', () => {
     const wrapper = setup();
     const component = findByTestAttr(wrapper, 'component-app');
-    console.log(component.debug());
     expect(component).toHaveLength(1);
 });
