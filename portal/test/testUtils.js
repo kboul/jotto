@@ -1,7 +1,4 @@
 import checkPropTypes from 'check-prop-types';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from '../src/store/reducers';
 
 /**
  *
@@ -22,14 +19,4 @@ export const checkProps = (component, conformingProps) => {
         component.name
     );
     expect(propError).toBeUndefined();
-};
-
-/**
- *
- * @param {object} initialState
- * @returns {Store} - Redux store
- */
-export const storeFactory = initialState => {
-    const createStoreWithMiddleware = applyMiddleware(...[thunk])(createStore);
-    return createStoreWithMiddleware(rootReducer, initialState);
 };
