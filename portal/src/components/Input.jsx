@@ -19,7 +19,11 @@ const Input = ({ secretWord }) => {
                 <button
                     type="button"
                     data-test="guess-button"
-                    className="btn btn-primary mb-2">
+                    className="btn btn-primary mb-2"
+                    onClick={e => {
+                        e.preventDefault();
+                        setCurrentGuess('');
+                    }}>
                     Guess
                 </button>
             </form>
