@@ -1,5 +1,7 @@
 import React from 'react';
+import Input from './Input';
 import * as actions from '../actions/getSecretWord';
+import Spinner from './Spinner';
 
 function reducer(state, action) {
     switch (action.type) {
@@ -13,7 +15,7 @@ function reducer(state, action) {
 const initialState = { secretWord: null };
 
 const App = () => {
-    const [state, dispatch] = React.useReducer(reducer, initialState);
+    const [{ secretWord }, dispatch] = React.useReducer(reducer, initialState);
 
     const setSecretWord = secretWord =>
         dispatch({
@@ -25,7 +27,15 @@ const App = () => {
         actions.getSecretWord(setSecretWord);
     }, []);
 
-    return <div data-test="component-app">hello world</div>;
+    return secretWord ? (
+        <div data-test="component-app">
+            <Input secretWord={secretWord} />
+        </div>
+    ) : (
+        <div data-test="spinner">
+            <Spinner />
+        </div>
+    );
 };
 
 export default App;
