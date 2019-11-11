@@ -25,8 +25,6 @@ const App = () => {
         actions.getSecretWord(setSecretWord);
     }, []);
 
-    console.log(state);
-
     return <div data-test="component-app">hello world</div>;
 };
 
