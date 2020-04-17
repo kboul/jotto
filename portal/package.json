@@ -49,7 +49,6 @@
         "check-prop-types": "^1.1.2",
         "enzyme": "^3.10.0",
         "enzyme-adapter-react-16": "^1.15.1",
-        "jest": "^24.9.0",
         "moxios": "^0.4.0"
     }
 }
